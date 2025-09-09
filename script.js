@@ -26,24 +26,22 @@ function operate(operator, num1, num2) {
 let displayNum1 = "";
 let displayNum2 = "";
 let displayOperator = "";
+let result = 0;
 
 function updateDisplay(num) {
 
-    //console.log(num.target.textContent)
+
     if ((num.target.className === "numButton") && !displayOperator) {
         displayNum1 = displayNum1 + "" + num.target.textContent;
-    } else if (num.target.className === "numButton") {
+    } else if ((num.target.className === "numButton") && !!displayOperator) {
         displayNum2 = displayNum2 + "" + num.target.textContent;
-    }
-
-    //This is broken??? TODO
-    if (num.target.classname === "operator") {
-        let opString = num.target.textContent
+    } else if (num.target.className === "operatorButton") {
         displayOperator = num.target.textContent;
     }
 
+    displayFunction.textContent = displayNum1 + " " + displayOperator + " " + displayNum2;
 
-    displayFunction.textContent = displayNum1;
+
 }
 
 
@@ -79,32 +77,31 @@ numButtons.forEach((e) => {
     });
 });
 
-
 // sets up the operator buttons.
 
 const opContainer = document.querySelector(".operatorContainer");
 
 const ad = document.createElement("button");
-ad.className = "operator";
+ad.className = "operatorButton";
 ad.textContent = "+";
 opContainer.appendChild(ad);
 
 const sub = document.createElement("button");
-sub.className = "operator";
+sub.className = "operatorButton";
 sub.textContent = "-";
 opContainer.appendChild(sub);
 
 const mult = document.createElement("button");
-mult.className = "operator";
+mult.className = "operatorButton";
 mult.textContent = "*";
 opContainer.appendChild(mult);
 
 const div = document.createElement("button");
-div.className = "operator";
+div.className = "operatorButton";
 div.textContent = "/";
 opContainer.appendChild(div);
 
-const operators = document.querySelectorAll(".operator")
+const operators = document.querySelectorAll(".operatorButton")
 
 operators.forEach((e) => {
     e.addEventListener("click", (e) => {
@@ -113,12 +110,30 @@ operators.forEach((e) => {
 });
 
 
-
-
-
 const equal = document.createElement("button");
 equal.textContent = "="
+equal.className = "equalsButton"
 opContainer.appendChild(equal);
+
+equal.addEventListener("click", () => {
+    if (displayOperator === "+") {
+        result = add(parseInt(displayNum1), parseInt(displayNum2));
+        displayFunction.textContent = result;
+    } else if (displayOperator === "-") {
+        result = subtract(parseInt(displayNum1), parseInt(displayNum2));
+        displayFunction.textContent = result;
+    } else if (displayOperator === "*") {
+        result = multiply(parseInt(displayNum1), parseInt(displayNum2));
+        displayFunction.textContent = result;
+    } else if (displayOperator === "/") {
+        result = divide(parseInt(displayNum1), parseInt(displayNum2));
+        displayFunction.textContent = result;
+    }
+    result = 0;
+    displayNum1 = "";
+    displayNum2 = "";
+    displayOperator = "";
+});
 
 const clear = document.createElement("button");
 clear.textContent = "C";
