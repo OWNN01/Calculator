@@ -72,7 +72,6 @@ let result = 0;
 // Updates the display to show current function or result. TODO: Debug this code. 
 
 function updateDisplay(character, type) {
-    console.log(character === "." && !displayNum1.includes("."));
     if ((type === "number") && !displayOperator) { // Fill in the first number
         if (!displayNum1 && character === 0) {
             displayNum1 = "";
