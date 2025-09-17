@@ -21,7 +21,17 @@ function multiply(firstNum, secondNum) {
 
 function divide(firstNum, secondNum) {
     let result = firstNum / secondNum;
-    return result.toFixed(2);
+    if (secondNum === 0) { // Capture a divide by zero case
+        alert("Don't divide by 0!");
+        displayNum2 = "";
+        displayOperator = "";
+        displayFunction.textContent = "0";
+        console.log(displayNum1);
+        return "";
+    } else {
+        return result.toFixed(2);
+    }
+
 }
 
 // Does the operation calls.
@@ -49,7 +59,7 @@ const displayFunction = document.createElement("p");
 displayFunction.style.margin = "auto";
 displayFunction.style.width = "50%";
 displayFunction.style.textAlign = "center";
-displayFunction.textContent = "0";
+displayFunction.textContent = "";
 display.appendChild(displayFunction);
 
 
@@ -63,9 +73,17 @@ let result = 0;
 
 function updateDisplay(character, type) {
     if ((type === "number") && !displayOperator) { // Fill in the first number
-        displayNum1 = displayNum1 + "" + character;
+        if (!displayNum1 && character === 0) {
+            displayNum1 = "";
+        } else {
+            displayNum1 = displayNum1 + "" + character;
+        }
     } else if ((type === "number") && !!displayOperator) { // Fill in the second number
-        displayNum2 = displayNum2 + "" + character;
+        if (!displayNum2 && character === 0) {
+            displayNum1 = "";
+        } else {
+            displayNum2 = displayNum2 + "" + character;
+        }
     } else if (type === "operator" && (!displayOperator && !!displayNum1)) { // Fill in the operator
         displayOperator = character;
     } else if (type === "operator" && (!!displayOperator && !!displayNum2)) { // Avoid adding more operators
@@ -156,7 +174,7 @@ clear.addEventListener("click", () => {
     displayNum1 = "";
     displayNum2 = "";
     displayOperator = "";
-    displayFunction.textContent = "0";
+    displayFunction.textContent = "";
 });
 
 
