@@ -1,10 +1,14 @@
 .display {
     margin: 20px;
-    color: red;
+    color: black;
     font-family: roboto;
     background-color: white;
+    border-radius: 20px;
+    border-color: red;
     height: 20px;
     width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .numContainer {
@@ -16,7 +20,7 @@
     flex-direction: column;
     align-items: center;
     border-radius: 20px;
-    box-shadow: 10px 5px 5px red;
+    box-shadow: 10px 5px 5px green;
 }
 
 .calculatorBody {
