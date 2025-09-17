@@ -1,5 +1,5 @@
 
-// TODO think of some more out of the box ways to clean up this mess of code. 
+// TODO add a backspace sometime.
 
 
 // Sets up the operator functions.
