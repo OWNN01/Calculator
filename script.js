@@ -5,19 +5,23 @@
 // Sets up the operator functions.
 
 function add(firstNum, secondNum) {
-    return firstNum + secondNum;
+    let result = firstNum + secondNum;
+    return result.toFixed(2);
 }
 
 function subtract(firstNum, secondNum) {
-    return firstNum - secondNum;
+    let result = firstNum - secondNum;
+    return result.toFixed(2);
 }
 
 function multiply(firstNum, secondNum) {
-    return firstNum * secondNum;
+    let result = firstNum * secondNum;
+    return result.toFixed(2);
 }
 
 function divide(firstNum, secondNum) {
-    return firstNum / secondNum;
+    let result = firstNum / secondNum;
+    return result.toFixed(2);
 }
 
 // Does the operation calls.
@@ -42,6 +46,9 @@ function operate(operator, num1, num2) {
 
 const display = document.querySelector(".display")
 const displayFunction = document.createElement("p");
+displayFunction.style.margin = "auto";
+displayFunction.style.width = "50%";
+displayFunction.style.textAlign = "center";
 displayFunction.textContent = "0";
 display.appendChild(displayFunction);
 
@@ -55,13 +62,13 @@ let result = 0;
 // Updates the display to show current function or result. TODO: Debug this code. 
 
 function updateDisplay(character, type) {
-    if ((type === "number") && !displayOperator) {
+    if ((type === "number") && !displayOperator) { // Fill in the first number
         displayNum1 = displayNum1 + "" + character;
-    } else if ((type === "number") && !!displayOperator) {
+    } else if ((type === "number") && !!displayOperator) { // Fill in the second number
         displayNum2 = displayNum2 + "" + character;
-    } else if (type === "operator" && (!displayOperator && !!displayNum1)) {
+    } else if (type === "operator" && (!displayOperator && !!displayNum1)) { // Fill in the operator
         displayOperator = character;
-    } else if (type === "operator" && (!!displayOperator && !!displayNum2)) {
+    } else if (type === "operator" && (!!displayOperator && !!displayNum2)) { // Avoid adding more operators
         operate(displayOperator, displayNum1, displayNum2);
         displayNum1 = result;
         displayNum2 = "";
