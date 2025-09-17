@@ -74,22 +74,27 @@ let result = 0;
 function updateDisplay(character, type) {
     if ((type === "number") && !displayOperator) { // Fill in the first number
         if (!displayNum1 && character === 0) {
-            displayNum1 = "";
+            displayNum1 = "0";
         } else if (character === "." && !displayNum1.includes(".")) {
             displayNum1 = displayNum1 + "" + character;
         } else if (character === "." && displayNum1.includes(".")) { // Excuse the spaghetti
 
+        } else if (displayNum1 === 0) {
+            displayNum1 = character;
         } else {
             displayNum1 = displayNum1 + "" + character;
         }
     } else if ((type === "number") && !!displayOperator) { // Fill in the second number
         if (!displayNum2 && character === 0) {
-            displayNum2 = "";
+            displayNum2 = "0";
         } else if (character === "." && !displayNum2.includes(".")) {
             displayNum2 = displayNum2 + "" + character;
         } else if (character === "." && displayNum2.includes(".")) {
 
-        } else {
+        } else if (displayNum2 === 0) {
+            displayNum2 = character;
+        }
+        else {
             displayNum2 = displayNum2 + "" + character;
         }
     } else if (type === "operator" && (!displayOperator && !!displayNum1)) { // Fill in the operator
