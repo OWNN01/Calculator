@@ -38,16 +38,16 @@ function divide(firstNum, secondNum) {
 
 function operate(operator, num1, num2) {
     if (operator === "+") {
-        result = add(parseInt(num1), parseInt(num2));
+        result = add(parseFloat(num1), parseFloat(num2));
         displayFunction.textContent = result;
     } else if (operator === "-") {
-        result = subtract(parseInt(num1), parseInt(num2));
+        result = subtract(parseFloat(num1), parseFloat(num2));
         displayFunction.textContent = result;
     } else if (operator === "*") {
-        result = multiply(parseInt(num1), parseInt(num2));
+        result = multiply(parseFloat(num1), parseFloat(num2));
         displayFunction.textContent = result;
     } else if (operator === "/") {
-        result = divide(parseInt(num1), parseInt(num2));
+        result = divide(parseFloat(num1), parseFloat(num2));
         displayFunction.textContent = result;
     }
 }
@@ -72,15 +72,24 @@ let result = 0;
 // Updates the display to show current function or result. TODO: Debug this code. 
 
 function updateDisplay(character, type) {
+    console.log(character === "." && !displayNum1.includes("."));
     if ((type === "number") && !displayOperator) { // Fill in the first number
         if (!displayNum1 && character === 0) {
             displayNum1 = "";
+        } else if (character === "." && !displayNum1.includes(".")) {
+            displayNum1 = displayNum1 + "" + character;
+        } else if (character === "." && displayNum1.includes(".")) { // Excuse the spaghetti
+
         } else {
             displayNum1 = displayNum1 + "" + character;
         }
     } else if ((type === "number") && !!displayOperator) { // Fill in the second number
         if (!displayNum2 && character === 0) {
-            displayNum1 = "";
+            displayNum2 = "";
+        } else if (character === "." && !displayNum2.includes(".")) {
+            displayNum2 = displayNum2 + "" + character;
+        } else if (character === "." && displayNum2.includes(".")) {
+
         } else {
             displayNum2 = displayNum2 + "" + character;
         }
@@ -106,6 +115,7 @@ for (let i = 0; i < 3; i++) {
     let row = document.createElement("div");
     for (let i = 0; i < 3; i++) {
         let num = document.createElement("button");
+        num.style.width = "50px";
         num.className = "numButton";
         num.textContent = currentNum;
         let buttonNum = currentNum;
@@ -119,6 +129,7 @@ for (let i = 0; i < 3; i++) {
 }
 
 let zero = document.createElement("button");
+zero.style.width = "150px";
 zero.className = "zeroButton";
 let zeroNum = 0;
 zero.textContent = 0;
@@ -126,6 +137,16 @@ zero.addEventListener("click", () => {
     updateDisplay(zeroNum, "number");
 });
 numContainer.appendChild(zero);
+
+let decimal = document.createElement("button");
+decimal.style.width = "150px";
+decimal.className = "decimalButton";
+let decimalChar = ".";
+decimal.textContent = ".";
+decimal.addEventListener("click", () => {
+    updateDisplay(decimalChar, "number");
+});
+numContainer.appendChild(decimal);
 
 
 // sets up the operator buttons.
@@ -137,6 +158,8 @@ let operatorArr = ["+", "-", "*", "/"]
 
 operatorArr.forEach(function (operator) {
     const currentOp = document.createElement("button");
+    currentOp.style.width = "37.5px";
+    currentOp.style.height = "37.5px";
     currentOp.className = "operatorButton";
     currentOp.textContent = operator;
     currentOp.addEventListener("click", () => {
@@ -151,6 +174,8 @@ operatorArr.forEach(function (operator) {
 
 
 const equal = document.createElement("button");
+equal.style.height = "37.5px";
+equal.style.width = "75px";
 equal.textContent = "="
 equal.className = "equalsButton"
 opContainer.appendChild(equal);
@@ -167,6 +192,8 @@ equal.addEventListener("click", () => {
 // Set up the clear function to wipe all of the variables. 
 
 const clear = document.createElement("button");
+clear.style.height = "37.5px";
+clear.style.width = "75px";
 clear.textContent = "C";
 opContainer.appendChild(clear);
 
